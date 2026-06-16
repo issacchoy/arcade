@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flappy Bird</title>
+    <style>
+        body { background: #111; color: #fff; text-align: center; font-family: Arial; }
+        canvas { background: #70c5ce; display: block; margin: 20px auto; border: 4px solid #0052cc; }
+    </style>
+</head>
+<body>
+    <h1>🐦 Flappy Bird</h1>
+    <p>Press <b>SPACEBAR</b> or <b>CLICK</b> to jump!</p>
+    <canvas id="game" width="320" height="480"></canvas>
+    <script>
+        const canvas = document.getElementById('game'); const ctx = canvas.getContext('2d');
+        let bird = { x: 50, y: 150, velocity: 0, gravity: 0.5, jump: -7, radius: 12 };
+        let pipes = []; let score = 0; let frame = 0; let gameOver = false;
+        function createPipe() { pipes.push({ x: canvas.width, top: Math.random() * (canvas.height/2) + 50, bottom: Math.random() * (canvas.height/2) + 50, width: 40 }); }
+        function loop() {
+            if (gameOver) return; frame++; ctx.clearRect(0, 0, canvas.width, canvas.height);
+            bird.velocity += bird.gravity; bird.y += bird.velocity;
+            ctx.fillStyle = 'yellow'; ctx.beginPath(); ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI*2); ctx.fill();
+            if (frame % 90 === 0) createPipe();
+            pipes.forEach((pipe, i) => {
+                pipe.x -= 2; ctx.fillStyle = 'green';
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.top);
+                ctx.fillRect(pipe.x, canvas.height - pipe.bottom, pipe.width, pipe.bottom);
+                if (pipe.x + pipe.width < 0) { pipes.splice(i, 1); score++; }
+                if (bird.x + bird.radius > pipe.x && bird.x - bird.radius < pipe.x + pipe.width && (bird.y - bird.radius < pipe.top || bird.y + bird.radius > canvas.height - pipe.bottom)) gameOver = true;
+            });
+            if (bird.y + bird.radius > canvas.height || bird.y - bird.radius < 0) gameOver = true;
+            ctx.fillStyle = 'white'; ctx.font = '24px Arial'; ctx.fillText("Score: " + score, 20, 40);
+            if (!gameOver) requestAnimationFrame(loop); else { ctx.fillStyle = 'red'; ctx.fillText("GAME OVER", 80, 240); }
+        }
+        function jump() { bird.velocity = bird.jump; if (gameOver) { bird.y = 150; bird.velocity = 0; pipes = []; score = 0; gameOver = false; frame = 0; loop(); } }
+        window.addEventListener('keydown', e => { if (e.code === 'Space') jump(); });
+        canvas.addEventListener('click', jump); createPipe(); loop();
+    </script>
+</body>
+</html>
