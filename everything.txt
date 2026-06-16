@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peakness Arcade Hub</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #121212; color: #fff; margin: 0; padding: 50px; }
+        .container { max-width: 600px; margin: auto; padding: 30px; background: #1e1e1e; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #0052cc; }
+        h1 { color: #0052cc; margin-bottom: 5px; }
+        p { color: #aaa; margin-bottom: 30px; }
+        .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .game-link { display: block; padding: 20px; background: #2a2a2a; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; border: 1px solid #333; transition: 0.2s; }
+        .game-link:hover { background: #0052cc; border-color: #0052cc; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Peakness Arcade Hub</h1>
+        <p>Select an unblocked school game to launch instantly:</p>
+        
+        <div class="game-grid">
+            <a href="snake.html" class="game-link">🐍 Classic Snake</a>
+            <a href="flappy.html" class="game-link">🐦 Flappy Bird</a>
+            <a href="space.html" class="game-link">🚀 Space Invaders</a>
+            <a href="retro.html" class="game-link">🎮 Game Boy Emulator</a>
+        </div>
+    </div>
+</body>
+</html>
